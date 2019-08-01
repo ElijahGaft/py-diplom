@@ -15,7 +15,7 @@ Auth_DATA = {
 }
 # print('?'.join((AUTH_URL, urlencode(Auth_DATA)))) # выдаёт ссылку на страничку разрешений прав, так я могу узнать токен.
 
-TOKEN = '0f326b4fbeac5e64fd5f5157522cd42adcdebcad95a6fcb96e4c9dd4f4bd97e42787c92b27b5ab528b27e'  # токен моего пользователя через которого идут все запросы
+TOKEN = 'c92d44116b239b0f6b8484a6b864cb45602235e95d003bad3f4d3462352e90567a384511348de6b64ea89'  # токен моего пользователя через которого идут все запросы
 
 
 class User:
@@ -60,9 +60,9 @@ class User:
             'access_token': self.token,
             'v': '5.61',
             'group_id': self.id_gr,
-            'fields' : 'city, country, place, description, wiki_page, market, members_count, counters, start_date, finish_date, can_post, can_see_all_posts, activity, status, contacts, links, fixed_post, verified, site, ban_info'
-
+            'fields' : 'members_count'
         }
+        time.sleep(3)
         response = self.request(
             'groups.getById',
             params=params
@@ -117,11 +117,28 @@ if __name__ == '__main__':
         sys.stdout.flush()
         time.sleep(0.01)
         counter += 1
-    print(groups)
-    for i in groups:
-        group_info = Evgeniy.group_info(i)
-        print(group_info)
-    with open('group.json', 'w' ) as f:
-        data = {'gid': groups}
+    name_gr = []
+    members_count_gr = []
+    # print(groups, '0')
+    for id in groups:
+        group_info = Evgeniy.group_info(id)
+        for info in group_info:
+            name = info.get('name')
+            name_gr.append(name)
+            members_count = info.get('members_count')
+            members_count_gr.append(members_count)
+
+    # print(name_gr, '2')
+    # print(members_count_gr, '3')
+    len = len(groups)
+    data_group = []
+    while len != 0:
+        gr_inf = {'name': name_gr[len - 1],
+                  'gid': groups[len - 1],
+                  'members_count': members_count_gr[len - 1]}
+        data_group.append(gr_inf)
+        len -= 1
+    with open('group.json', 'w') as f:
+        data = data_group
         json.dump(data, f, ensure_ascii = False, indent = 2)
 

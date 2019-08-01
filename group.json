@@ -1,7 +1,17 @@
-{
-  "gid": [
-    134709480,
-    8564,
-    101522128
-  ]
-}
+[
+  {
+    "name": "E:\\music\\leftfield",
+    "gid": 101522128,
+    "members_count": 13024
+  },
+  {
+    "name": "Synthpop [Futurepop, Retrowave, Electropop]",
+    "gid": 8564,
+    "members_count": 26669
+  },
+  {
+    "name": "Бренд одежды | MEDICINE",
+    "gid": 134709480,
+    "members_count": 4026
+  }
+]
